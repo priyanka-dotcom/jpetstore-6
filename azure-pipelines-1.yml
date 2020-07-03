@@ -10,5 +10,21 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo devopspipeline
-  displayName: 'running devops pipeline"
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'sonar:sonar'
+    options: '-Dsonar.host.url=http://52.188.172.138:9000'
+    publishJUnitResults: false
+    codeCoverageToolOption: 'JaCoCo'
+    codeCoverageClassFilesDirectories: '.'
+    codeCoverageSourceDirectories: '.'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'latest'
+    checkStyleRunAnalysis: true
+    pmdRunAnalysis: true
+    findBugsRunAnalysis: true
